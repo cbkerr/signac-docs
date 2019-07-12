@@ -90,7 +90,7 @@ The :py:func:`~flow.FlowProject.make_group` is used to allow operations in ``Flo
         Project().main()
 
 We can define both *pre* and *post* conditions, which allow us to define arbitrary workflows as an acyclic graph.
-A operation is only executed if **all** pre-conditions are met, and at *at least one* post-condition is not met. In addition, groups from :py:func:`~flow.FlowProject.make_group` are egliable for *pre* and *post* conditions.
+A operation is only executed if **all** pre-conditions are met, and at *at least one* post-condition is not met. In addition, groups from :py:func:`~flow.FlowProject.make_group` will submit all operations in the group and check all *pre* and *post* conditions of each operation, then run the operations in designed scheduler.
 
 .. tip::
 
