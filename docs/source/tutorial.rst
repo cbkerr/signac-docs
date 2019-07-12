@@ -293,11 +293,54 @@ This should now return without any message because all operations have already b
 
     To simply, execute a specific operation from the command line ignoring all logic, use the ``exec`` command, *e.g.*: ``$ python project.py exec compute_volume``.
     This command (as well as the run command) also accepts jobs as arguments, so you can specify that you only want to run operations for a specific set of jobs.
+    
+    
+Define groups of job-operations
+-------------------------------
+
+Sometimes, it can be more convenient to do several operations once and there is no care about the order of these operations. For instance,
+
+.. code-block:: python
+
+    #project.py
+    from flow import FlowProject
+    import os
+    
+    V_group = FlowProject.make_group(name='V_group')
+        
+    @FlowProject.operation
+    @V_group
+    def compute_volume(job):
+        volume = job.sp.N * job.sp.kT / job.sp.p
+        with open(job.fn('volume.txt'),'w') as file:
+            file.write(str(volume) + '\n')
+            
+    @FlowProject.operation
+    @V_group
+    def compute_density(job):
+        density = job.sp.p / job.sp.kT
+        with open(job.fn('density.txt'),'w') as file:
+            file.write(str(density) + '\n')
+
+    if __name__ == '__main__':
+        FlowProject().main()
+        
+The operations ``compute_volume()`` and ``compute_density`` are tagged as *V_group*. In that case, the command line:
+
+.. code-block:: bash
+
+    ~/ideal_gas_project $ python project.py submit --group V_group
+    
+This will run both ``compute_volume`` and ``compute_density`` for all eligible jobs as user defined, and it doesn't care about the execution order of the two operations on each job.
+
+.. Tip::
+    There can be several groups. And users can submit jobs with selected group successfully only when there is *at least one* job can be executed for each operations in the group.
 
 Extending the workflow
 ----------------------
 
-So far we learned how to define and implement *data space operations* and how to define simple post conditions to control the execution of said operations.
+So far we learned how to define and implement *data space operations* and how to define simple post conditions to control the execution of said operations.In additions, we knew how to divide job-operations into groups so that operations can be organized as *metaoperations*.
+
 In the next step, we will learn how to integrate multiple operations into a cohesive workflow.
 
 First, let's verify that the volume has actually been computed for all jobs.
