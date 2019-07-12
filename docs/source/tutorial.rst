@@ -334,7 +334,7 @@ The operations ``compute_volume()`` and ``compute_density`` are tagged as *V_gro
 This will run both ``compute_volume`` and ``compute_density`` for all eligible jobs as user defined, and it doesn't care about the execution order of the two operations on each job.
 
 .. Tip::
-    There can be several groups. And users can submit jobs with selected group successfully only when there is *at least one* job can be executed for each operations in the group.
+    There can be several groups. And users can submit jobs with selected group successfully only when there is *at least one* operation can be executed in the group.
 
 Extending the workflow
 ----------------------
