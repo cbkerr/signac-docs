@@ -200,11 +200,11 @@ If we implemented and integrated the operation and condition functions correctly
                 with open('shake_hand.txt','w') as file:
                     file.write('Make a friendship!\n')
 
-    However, if add ``--exec`` at the end of the command line, the operations will be forcely executed whatever the groups' status is.
+    However, if add ``--exec`` at the end of the command line, it will specify specific operation or group. e.g.,
     
     .. code-block:: bash
     
-        ~/my_project $ python project submit -o [operations] --exec
+        ~/my_project $ python project submit -o [operations/groups] --exec
         
     
 The Project Status
