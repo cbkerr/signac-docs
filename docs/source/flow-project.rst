@@ -90,7 +90,7 @@ The :py:func:`~flow.FlowProject.make_group` is used to allow operations in ``Flo
         Project().main()
 
 We can define both *pre* and *post* conditions, which allow us to define arbitrary workflows as an acyclic graph.
-A operation is only executed if **all** pre-conditions are met, and at *at least one* post-condition is not met. In addition, groups from :py:func:`~flow.FlowProject.make_group` will submit all operations in the group and check all *pre* and *post* conditions of each operation, then run the operations in designed scheduler.
+A operation is only executed if **all** pre-conditions are met, and at *at least one* post-condition is not met. In addition, `group` function from :py:func:`~flow.FlowProject.make_group` will submit all operations in the group and check all *pre* and *post* conditions of each operation, then run the operations in designed scheduler. :py:func:~flow.FlowProject.pre.after(group name)` will give the *pre* conditions for the whole group.
 
 .. tip::
 
@@ -172,7 +172,7 @@ If we implemented and integrated the operation and condition functions correctly
     
     .. code-block:: bash
         
-        ~/my_project $ python project.py submit --group stranger_group
+        ~/my_project $ python project.py submit -o stranger_group
     
     It will be the same as:
     
@@ -180,8 +180,7 @@ If we implemented and integrated the operation and condition functions correctly
     
         ~/my_project $ python project.py run -o [operations tagged with *stranger_group*]
         
-    By ``@stranger_group``, the ``hello()`` will be tagged as *stranger_group*. Groups can be uesd as *pre* and *post* conditions as 
-    well, so that the ``shake()`` will only be available for jobs already executed by operations with *stranger_group* tag, e.g.:
+    By ``@stranger_group``, the ``hello()`` and ``shake()`` will be tagged as *stranger_group*. All jobs have done ``hello()`` will have *post* condition *greeted*, while *greeted* is *pre* condition for ``shake()``. In this case, if users submit *stranger_group* operations, it will run all jobs without *greeted* post condition, that is, jobs haven't done ``hello()`` operation. Meanwhile, it will also run the jobs with *greeted*. After jobs finished ``hello()``, it will be submitted for the ``shake()`` automatically. e.g.:
     
     .. code-block:: python
     
@@ -192,10 +191,10 @@ If we implemented and integrated the operation and condition functions correctly
             with job:
                 with open('hello.txt', 'w') as file:
                     file.write('world!\n')
-                
-        @friend_group
-        @FlowProject.pre.after(stranger_group)
-        @FlowProject.operation
+        
+        @Project.operation
+        @stranger_group
+        @Project.pre(greeted)
         def shake(job):
             with job:
                 with open('shake_hand.txt','w') as file:
@@ -205,7 +204,7 @@ If we implemented and integrated the operation and condition functions correctly
     
     .. code-block:: bash
     
-        ~/my_project $ python project run -o [operations] --exec
+        ~/my_project $ python project submit -o [operations] --exec
         
     
 The Project Status
