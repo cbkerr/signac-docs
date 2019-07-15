@@ -298,7 +298,7 @@ This should now return without any message because all operations have already b
 Define groups of job-operations
 -------------------------------
 
-Sometimes, it can be more convenient to do several operations once and there is no care about the order of these operations. For instance,
+It can be more convenient to submit several operations once instead of waiting for previous operation doone and submit new operation manually. For instance,
 
 .. code-block:: python
 
@@ -310,6 +310,7 @@ Sometimes, it can be more convenient to do several operations once and there is 
         
     @FlowProject.operation
     @V_group
+    @FlowProject.post(volume_computed)
     def compute_volume(job):
         volume = job.sp.N * job.sp.kT / job.sp.p
         with open(job.fn('volume.txt'),'w') as file:
@@ -317,6 +318,7 @@ Sometimes, it can be more convenient to do several operations once and there is 
             
     @FlowProject.operation
     @V_group
+    @FlowProject.pre(volume_computed)
     def compute_density(job):
         density = job.sp.p / job.sp.kT
         with open(job.fn('density.txt'),'w') as file:
@@ -329,9 +331,9 @@ The operations ``compute_volume()`` and ``compute_density`` are tagged as *V_gro
 
 .. code-block:: bash
 
-    ~/ideal_gas_project $ python project.py submit --group V_group
+    ~/ideal_gas_project $ python project.py submit -o V_group
     
-This will run both ``compute_volume`` and ``compute_density`` for all eligible jobs as user defined, and it doesn't care about the execution order of the two operations on each job.
+This will run both ``compute_volume`` and ``compute_density`` for all eligible jobs as user defined, and it will submit the jobs for ``compute_density()`` after finishing ``compute_volume()`` for those jobs without *volume_computed* at the very beginning. However, for jobs already with *volume_computed*, it will run the ``compute_density()`` directly.
 
 .. Tip::
     There can be several groups. And users can submit jobs with selected group successfully only when there is *at least one* operation can be executed in the group.
