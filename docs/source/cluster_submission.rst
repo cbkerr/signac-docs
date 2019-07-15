@@ -28,7 +28,7 @@ While the command line including **groups** as following:
 
 .. code-block:: bash
 
-      ~/my_project $ python project.py submit --group [name of the group]
+      ~/my_project $ python project.py submit -o [name of the group]
       
 This will only submit job-operations in the group.
 
@@ -69,8 +69,7 @@ The submission scripts are generated using the same templating system like the `
 
 .. tip::
 
-    Use the ``--pretend`` or ``--test`` option to pre-view the generated submission scripts on screen instead of submitting them. Use the ``--exec`` to submit **all eligible** job-operations anyway, ignoring the groups tags.
-
+    Use the ``--pretend`` or ``--test`` option to pre-view the generated submission scripts on screen instead of submitting them. Use the ``--exec`` on ``submit`` or ``script`` to specify only single operation ``FlowGroups`` or FlowOperations`` .
 
 Parallelization and Bundling
 ============================
