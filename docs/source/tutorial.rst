@@ -492,7 +492,7 @@ Let's start by generating a script for the execution of up to two *eligible* ope
     set -e
     set -u
 
-    cd /Users/csadorf/ideal_gas_project
+    cd /path/to/ideal_gas_project
 
     # Operation 'compute_volume' for job '03585df0f87fada67bd0f540c102cce7':
     python project.py exec compute_volume 03585df0f87fada67bd0f540c102cce7
@@ -522,7 +522,7 @@ Executing the ``script`` command again, we see that it would now execute both th
     set -e
     set -u
 
-    cd /Users/csadorf/ideal_gas_project
+    cd /path/to/ideal_gas_project
 
     # Operation 'store_volume_in_document' for job '03585df0f87fada67bd0f540c102cce7':
     python project.py exec store_volume_in_document 03585df0f87fada67bd0f540c102cce7
@@ -546,7 +546,7 @@ Storing the above template within a file called ``templates/script.sh`` will now
 .. code-block:: bash
 
    ~/ideal_gas_project $ python project.py script -n 2
-   cd /Users/csadorf/ideal_gas_project
+   cd /path/to/ideal_gas_project
 
    python project.py exec store_volume_in_document 03585df0f87fada67bd0f540c102cce7
    python project.py exec store_volume_in_json_file 03585df0f87fada67bd0f540c102cce7
