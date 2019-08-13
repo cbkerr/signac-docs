@@ -483,7 +483,8 @@ We need to reset our workflow before we can test that:
     ~/ideal_gas_project $ rm -r workspace/
     ~/ideal_gas_project $ python init.py
 
-Let's start by generating a script for the execution of up to two *eligible* operations:
+Let's start by generating a script for the execution of up to two *eligible* operations.
+By default, the generated script will change into the  *project root directory* and then execute the command for each next eligible operation for all selected jobs:
 
 .. code-block:: bash
 
@@ -499,7 +500,7 @@ Let's start by generating a script for the execution of up to two *eligible* ope
     # Operation 'compute_volume' for job '22a51374466c4e01ef0e67e65f73c52e':
     python project.py exec compute_volume 22a51374466c4e01ef0e67e65f73c52e
 
-By default, the generated script will change into the  *project root directory* and then execute the command for each next eligible operation for all selected jobs.
+
 We then have two ways to run this script.
 One option would be to pipe it into a file and then execute it:
 
