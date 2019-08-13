@@ -545,11 +545,11 @@ Storing the above template within a file called ``templates/script.sh`` will now
 
 .. code-block:: bash
 
-   ~/ideal_gas_project $ python project.py script -n 2
-   cd /path/to/ideal_gas_project
+    ~/ideal_gas_project $ python project.py script -n 2
+    cd /path/to/ideal_gas_project
 
-   python project.py exec store_volume_in_document 03585df0f87fada67bd0f540c102cce7
-   python project.py exec store_volume_in_json_file 03585df0f87fada67bd0f540c102cce7
+    python project.py exec store_volume_in_document 03585df0f87fada67bd0f540c102cce7
+    python project.py exec store_volume_in_json_file 03585df0f87fada67bd0f540c102cce7
 
 Please see ``$ python project.py script --template-help`` to get more information on how to write and use custom templates.
 
