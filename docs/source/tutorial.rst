@@ -559,7 +559,7 @@ Submit operations to a scheduling system
 
 In addition to executing operations directly on the command line and generating scripts, **signac** can also submit operations to a scheduler such as SLURM_.
 This is essentially equivalent to generating a script as described in the previous section, but in this case the script will also contain the relevant scheduler directives such as the number of processors to request.
-In addition, **signac** will also keep track of submitted operations in addition to workflow progress, which almost completely automates the submission process as well as preventing the accidental repeated submission of operations.
+In addition, **signac** will also keep track of submitted operations in addition to workflow progress, which almost completely automates the submission process as well as prevents the accidental repeated submission of operations.
 
 .. _SLURM: https://slurm.schedmd.com/
 
