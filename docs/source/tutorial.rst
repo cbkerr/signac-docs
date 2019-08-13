@@ -518,6 +518,8 @@ Alternatively, we could pipe it directly into the command processor:
 Executing the ``script`` command again, we see that it would now execute both the ``store_volume_in_document`` and the ``store_volume_in_json_file`` operation, since both share the same pre-conditions:
 
 .. code-block:: bash
+   :linenos:
+   :emphasize-lines: 8,10
 
     ~/ideal_gas_project $ python project.py script -n 2
     set -e
